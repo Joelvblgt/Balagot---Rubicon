@@ -79,14 +79,28 @@ public class  DrawingAppService implements AppService {
             shape.setEnd(newEnd);
         } else if (shape instanceof com.gabriel.draw.model.Ellipse) {
             com.gabriel.draw.model.Ellipse ellipse = (com.gabriel.draw.model.Ellipse) shape;
-            int width = Math.abs(newEnd.x - shape.getLocation().x);
-            int height = Math.abs(newEnd.y - shape.getLocation().y);
+            Point start = shape.getLocation(); // This is your original click point
+
+            // Calculate the bounding rectangle that contains both start and end points
+            int x = Math.min(start.x, newEnd.x);      // Leftmost point
+            int y = Math.min(start.y, newEnd.y);      // Topmost point
+            int width = Math.abs(newEnd.x - start.x); // Distance between points
+            int height = Math.abs(newEnd.y - start.y);
+
+            // Update the ellipse position and size
+            ellipse.setLocation(new Point(x, y));
             ellipse.setWidth(width);
             ellipse.setHeight(height);
         } else if (shape instanceof com.gabriel.draw.model.Rectangle) {
             com.gabriel.draw.model.Rectangle rectangle = (com.gabriel.draw.model.Rectangle) shape;
-            int width = Math.abs(newEnd.x - shape.getLocation().x);
-            int height = Math.abs(newEnd.y - shape.getLocation().y);
+            Point start = shape.getLocation();
+
+            int x = Math.min(start.x, newEnd.x);
+            int y = Math.min(start.y, newEnd.y);
+            int width = Math.abs(newEnd.x - start.x);
+            int height = Math.abs(newEnd.y - start.y);
+
+            rectangle.setLocation(new Point(x, y));
             rectangle.setWidth(width);
             rectangle.setHeight(height);
         }

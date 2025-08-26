@@ -11,9 +11,10 @@ public class EllipseRendererService implements RendererService {
     public void render(Graphics g, Shape shape, boolean xor) {
         Ellipse ellipse = (Ellipse) shape;
         if (xor) {
-            g.setXORMode(shape.getColor());
+            g.setXORMode(Color.WHITE);
         } else {
             g.setColor(shape.getColor());
+            g.setPaintMode(); // para normal yung paint mode
         }
         g.drawOval(ellipse.getLocation().x, ellipse.getLocation().y,
                 ellipse.getWidth(), ellipse.getHeight());
